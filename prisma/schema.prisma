@@ -5,46 +5,49 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL") 
 }
 
 // ตาราง User
 model User {
-  user_id   Int         @id @default(autoincrement())
-  username  String
-  address   String
-  email     String
-  borrowing Borrowing[]
+  user_id    Int         @id @default(autoincrement())
+  
+  username   String      
+  address    String
+  password   String
+  email      String      @unique
+  borrowings Borrowing[]
 }
 
 model Book {
-  book_id   Int         @id @default(autoincrement())
-  title     String
-  author    String
-  genre     String
-  available Boolean
-  borrowing Borrowing[]
+  book_id    Int         @id @default(autoincrement())
+  title      String
+  author     String
+  genre      String
+  available  Boolean
+  borrowings Borrowing[]
 }
 
 model Borrowing {
-  borrowing_id Int      @id @default(autoincrement())
-  user_id      Int      @unique
-  book_id      Int
-  comic_id     Int
-  DateBorrowed DateTime
-  datedue      DateTime
-  user         User     @relation(fields: [user_id], references: [user_id])
-  book         Book     @relation(fields: [book_id], references: [book_id])
-  comic        Comic    @relation(fields: [comic_id], references: [comic_id])
+  borrowing_id Int        @id @default(autoincrement())
+  user_id      Int        
+  book_id      Int        
+  comic_id     Int        
+  DateBorrowed DateTime   
+  datedue      DateTime   
+  user         User       @relation(fields: [user_id], references: [user_id])
+  book         Book       @relation(fields: [book_id], references: [book_id])
+  comic        Comic      @relation(fields: [comic_id], references: [comic_id])
 }
 
 model Comic {
-  comic_id  Int         @id @default(autoincrement())
-  title     String
-  author    String
-  genre     String
-  available Boolean
-  borrowing Borrowing[]
+  comic_id   Int         @id @default(autoincrement())
+  title      String
+  author     String
+  genre      String
+  available  Boolean
+  borrowings Borrowing[]
 }
