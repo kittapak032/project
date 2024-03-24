@@ -26,10 +26,26 @@ module.exports.register = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-
-  
 };
 
-module.exports.login = (req, res, next) => {
-    res.send('in Login...');
+module.exports.login = async (req, res, next) => {
+    const { username, password } = req.body;
+    
+    if (!(username.trim() && password.trim())) {
+        throw new Error('Username or password must not be blank');
+    }
+    
+    try {
+        // Find username in database
+        const user = await prisma.user.findFirst({ where: { username: username }});
+        if (!user) {
+            throw new Error('User not found');
+        }
+        
+        // Check password
+        const pwOK = await bcrypt.compare(password, user.password);
+        if (!pwOK) {
+            throw new Error('Invalid password');
+        }
+        
 };

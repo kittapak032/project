@@ -14,9 +14,8 @@ datasource db {
 // ตาราง User
 model User {
   user_id    Int         @id @default(autoincrement())
-  
-  username   String      
-  address    String
+  username   String      @db.VaChar(150)
+  address    String      @db.VaChar(72)
   password   String
   email      String      @unique
   borrowings Borrowing[]
