@@ -14,11 +14,13 @@ datasource db {
 // ตาราง User
 model User {
   user_id    Int         @id @default(autoincrement())
-  username   String      @db.VaChar(150)
-  address    String      @db.VaChar(72)
+  username   String      
+  address    String      
   password   String
   email      String      @unique
   borrowings Borrowing[]
+
+  @@map("users")
 }
 
 model Book {
@@ -50,3 +52,4 @@ model Comic {
   available  Boolean
   borrowings Borrowing[]
 }
+
