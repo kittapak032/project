@@ -8,7 +8,8 @@ JWT_KEY=
 
 method path params body
 
-POST /auth/register none {username, password, confirmPassword, email} POST /auth/login none {username, password}
+POST /auth/register none {username, password, confirmPassword, email, address } POST /auth/login    none {username, password}
+GET  /auth/me       none none
 
 Notes
 
